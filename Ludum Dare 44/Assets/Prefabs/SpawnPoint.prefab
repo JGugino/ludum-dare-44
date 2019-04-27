@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7685374700286827147
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7685374700286827146}
+  - component: {fileID: 2764665495578453791}
+  - component: {fileID: 390613355188205410}
+  - component: {fileID: 2868045805407950352}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: SpawnPoint
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7685374700286827146
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7685374700286827147}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2764665495578453791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7685374700286827147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b34c97bd1bd99a444b6c37d3d314f726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorDirection: 0
+  bottomRooms:
+  - {fileID: 5489766506935986711, guid: f12bfd0088754eb4dbb72ca303644a91, type: 3}
+  - {fileID: 5255104229056908927, guid: 529c73e8ea75bbc449a37fadac9a6ab4, type: 3}
+  - {fileID: 4798524337032322790, guid: d43ea3f607c3ee04a9430e1f6edc78ee, type: 3}
+  - {fileID: 5432297989673406426, guid: 3d1ea7b82b257c44088a87562e76f8e8, type: 3}
+  topRooms:
+  - {fileID: 1743566290289146078, guid: 3af8e39ba20bd6047ab4dedfaf882694, type: 3}
+  - {fileID: 5432297989673406426, guid: 3d1ea7b82b257c44088a87562e76f8e8, type: 3}
+  - {fileID: 1060835807743379678, guid: 707b07ccf6ff2d644988b08279a5dc8b, type: 3}
+  - {fileID: 5110417975456427317, guid: 5d3bf9cecfd49164fb749b27e3fef3a5, type: 3}
+  leftRooms:
+  - {fileID: 5255104229056908927, guid: 529c73e8ea75bbc449a37fadac9a6ab4, type: 3}
+  - {fileID: 4667224509810132811, guid: 5e5cd8e97db6c0c439c126ebdff1adb1, type: 3}
+  - {fileID: 4233113663384220199, guid: 44ffc798bb1f69340a20e3a516aff238, type: 3}
+  - {fileID: 1060835807743379678, guid: 707b07ccf6ff2d644988b08279a5dc8b, type: 3}
+  rightRooms:
+  - {fileID: 4798524337032322790, guid: d43ea3f607c3ee04a9430e1f6edc78ee, type: 3}
+  - {fileID: 4233113663384220199, guid: 44ffc798bb1f69340a20e3a516aff238, type: 3}
+  - {fileID: 2502919740162201366, guid: 5217e16d5f39a1a42a865b25c116f5b7, type: 3}
+  - {fileID: 5110417975456427317, guid: 5d3bf9cecfd49164fb749b27e3fef3a5, type: 3}
+  hasSpawned: 0
+  waitTime: 4
+  createdRooms: []
+--- !u!61 &390613355188205410
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7685374700286827147}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0025273561, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.987531, y: 4.002695}
+  m_EdgeRadius: 0
+--- !u!50 &2868045805407950352
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7685374700286827147}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
