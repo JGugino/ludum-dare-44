@@ -66,9 +66,10 @@ MonoBehaviour:
   - {fileID: 4233113663384220199, guid: 44ffc798bb1f69340a20e3a516aff238, type: 3}
   - {fileID: 2502919740162201366, guid: 5217e16d5f39a1a42a865b25c116f5b7, type: 3}
   - {fileID: 5110417975456427317, guid: 5d3bf9cecfd49164fb749b27e3fef3a5, type: 3}
+  closedRoom: {fileID: 6060521968529437533, guid: 3274d13de75cacf4e87eaa62698b0914,
+    type: 3}
   hasSpawned: 0
   waitTime: 4
-  createdRooms: []
 --- !u!61 &390613355188205410
 BoxCollider2D:
   m_ObjectHideFlags: 0

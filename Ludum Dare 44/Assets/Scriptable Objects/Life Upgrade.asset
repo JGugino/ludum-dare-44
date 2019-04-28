@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3680f4c15bb1bc4fbf6de2d74799b85, type: 3}
+  m_Name: Life Upgrade
+  m_EditorClassIdentifier: 
+  upgradeIcon: {fileID: 21300000, guid: 0859c643a88a30040a5e274e23ab2526, type: 3}
+  upgradeName: Heart
+  upgradeDesc: Gives you move life
+  lungCost: 5
+  liverCost: 5
+  kidneyCost: 5
+  heartCost: 1

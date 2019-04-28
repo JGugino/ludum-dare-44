@@ -5,6 +5,21 @@ TagManager:
   serializedVersion: 2
   tags:
   - SpawnPoint
+  - Alien
+  - Tile
+  - CenterPoint
+  - Destroyer
+  - BloodShot
+  - Item
+  - Lung Amount
+  - Liver Amount
+  - Kidney Amount
+  - Heart Amount
+  - Chest
+  - Merchant
+  - Merchant Spawn
+  - Merchant Screen
+  - Gameplay Screen
   layers:
   - Default
   - TransparentFX
