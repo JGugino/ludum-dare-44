@@ -14,10 +14,8 @@ public class AlienController : MonoBehaviour
 
     private int minDropAmount = 1, maxDropAmount = 4;
 
-    private int dropOffset = 5;
-
     [SerializeField]
-    private string[] possibleDrops;
+    private string[] possibleDrops = null;
 
     private Animator alienAnimator;
 
@@ -65,6 +63,9 @@ public class AlienController : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             GameController.instance.createItem(possibleDrops[Random.Range(0, possibleDrops.Length)], transform.position);
+
+            GameController.instance.currentPlayer.GetComponent<PlayerController>().addAmmo(Random.Range(2, 8));
+
             //AudioManager.Instance.playSound("Alien Die");
             Destroy(gameObject);
         }

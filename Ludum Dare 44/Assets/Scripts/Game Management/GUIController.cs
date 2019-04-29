@@ -14,7 +14,11 @@ public class GUIController : MonoBehaviour
 
     private Transform upgradeIconParent;
 
-    private TextMeshProUGUI lungAmount, liverAmount, kidneyAmount, heartAmount;
+    private Slider ammoSlider;
+
+    private GameObject sacrificeText;
+
+    private TextMeshProUGUI lungAmount, liverAmount, kidneyAmount, heartAmount, ammoText;
 
     private void Awake()
     {
@@ -52,6 +56,12 @@ public class GUIController : MonoBehaviour
 
         upgradeIconParent = GameObject.FindGameObjectWithTag("Upgrade Icons").GetComponent<Transform>();
 
+        ammoSlider = GameObject.FindGameObjectWithTag("Ammo Slider").GetComponent<Slider>();
+
+        ammoText = GameObject.FindGameObjectWithTag("Ammo Text").GetComponent<TextMeshProUGUI>();
+
+        sacrificeText = GameObject.FindGameObjectWithTag("Sacrifice Text");
+
         restartButton.gameObject.SetActive(false);
 
         exitButton.onClick.AddListener(delegate { GameController.instance.exitToMenu(); });
@@ -83,6 +93,23 @@ public class GUIController : MonoBehaviour
         updateAllAmounts();
     }
 
+    public void updateAmmoSlider(int amount)
+    {
+        ammoSlider.value = amount;
+
+        updateAmmoText(amount);
+    }
+
+    private void updateAmmoText(int amount)
+    {
+        ammoText.text = amount + "/" + GameController.instance.currentPlayer.GetComponent<PlayerController>().getPlayerMaxAmmo();
+    }
+
+    public void toggleSacrificeText(bool _on)
+    {
+        sacrificeText.SetActive(_on);
+    }
+
     public void toggleGameplayUI(bool _on)
     {
         gameplayUI.SetActive(_on);
@@ -99,6 +126,7 @@ public class GUIController : MonoBehaviour
         deathScreen.SetActive(_on);
         GameController.instance.isPaused = _on;
     }
+
     public void toggleLoadingScreen(bool _on)
     {
         loadingScreen.SetActive(_on);
@@ -145,5 +173,10 @@ public class GUIController : MonoBehaviour
     public Transform getUpgradeIconsParent()
     {
         return upgradeIconParent;
+    }
+
+    public GameObject getSacrificeText()
+    {
+        return sacrificeText;
     }
 }

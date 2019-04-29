@@ -9,13 +9,13 @@ public class UpgradeContainer : MonoBehaviour
     public UpgradeItem currentUpgrade;
 
     [SerializeField]
-    private Image upgradeIcon;
+    private Image upgradeIcon = null;
 
     [SerializeField]
-    private Button buyButton;
+    private Button buyButton = null;
 
     [SerializeField]
-    private TextMeshProUGUI upgradeName, upgradeDesc, lungCost, liverCost, kidneyCost, heartCost;
+    private TextMeshProUGUI upgradeName = null, upgradeDesc = null, lungCost = null, liverCost = null, kidneyCost = null, heartCost = null;
 
     public void configurePrefab(UpgradeItem _upgrade)
     {

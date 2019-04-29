@@ -8,17 +8,17 @@ public class RoomGenerator : MonoBehaviour
     public int doorDirection;
 
     [SerializeField]
-    private GameObject roomsParentPrefab, merchantSpawnerPrefab;
+    private GameObject roomsParentPrefab = null, merchantSpawnerPrefab = null;
 
     [SerializeField]
     private GameObject[] bottomRooms = new GameObject[4], topRooms = new GameObject[4], leftRooms = new GameObject[4], rightRooms = new GameObject[4];
 
     [SerializeField]
-    private GameObject closedRoom;
+    private GameObject closedRoom = null;
 
     public bool hasSpawned = false;
 
-    private int maxRooms = 500;
+    //private int maxRooms = 500;
 
     private int rand;
 

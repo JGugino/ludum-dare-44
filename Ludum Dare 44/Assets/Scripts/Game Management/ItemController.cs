@@ -7,7 +7,7 @@ public class ItemController : MonoBehaviour
     public string itemType = "none";
 
     [SerializeField]
-    private SpriteRenderer itemIcon;
+    private SpriteRenderer itemIcon = null;
 
     [SerializeField]
     private Sprite[] possibleOrgans = new Sprite[4];
@@ -15,7 +15,7 @@ public class ItemController : MonoBehaviour
     [SerializeField]
     private Sprite[] possibleItems = new Sprite[1];
 
-    private float attractDistance = 3f, attractSpeed = 5f;
+    private float attractDistance = 3f, attractSpeed = 2f;
 
     private void Update()
     {
@@ -23,7 +23,7 @@ public class ItemController : MonoBehaviour
 
         if (dist <= attractDistance)
         {
-            transform.position = Vector3.MoveTowards(transform.position, GameController.instance.currentPlayer.position, 2f*Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, GameController.instance.currentPlayer.position, attractSpeed*Time.deltaTime);
         }
     }
 

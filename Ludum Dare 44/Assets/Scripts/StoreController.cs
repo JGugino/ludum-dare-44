@@ -7,12 +7,12 @@ public class StoreController : MonoBehaviour
     public GameObject upgradeItemPrefab;
 
     [SerializeField]
-    private UpgradeItem[] possibleUpgrades;
+    private UpgradeItem[] possibleUpgrades = null;
 
     private List<GameObject> spawnedUpgrades;
 
     [SerializeField]
-    private Transform upgradeParent;
+    private Transform upgradeParent = null;
 
     private void Start()
     {

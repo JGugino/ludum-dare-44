@@ -22,23 +22,6 @@ public class PlayerInput : MonoBehaviour
             float _horDir = Input.GetAxisRaw("Horizontal");
             float _vertDir = Input.GetAxisRaw("Vertical");
 
-            if (pController.getHasSprint())
-            {
-                if ((Input.GetButtonDown("Sprint")) && ((_horDir > 0 || _horDir < 0) || (_vertDir > 0 || _vertDir < 0)))
-                {
-                    pMotor.toggleSprint(true);
-                }
-
-                if (Input.GetButtonDown("Sprint") && pMotor.getIsSprinting())
-                {
-                    pMotor.toggleSprint(false);
-                }
-                else if ((_horDir > 0 && _horDir < 0) && (_vertDir > 0 && _vertDir < 0))
-                {
-                    pMotor.toggleSprint(false);
-                }
-            }
-
             pMotor.playerMove(_horDir, _vertDir);
 
             if (Input.GetButtonDown("Shoot Blood"))
@@ -65,6 +48,15 @@ public class PlayerInput : MonoBehaviour
                 }
             }
 
+            if (pController.getPlayerCurrentAmmo() < 30)
+            {
+                if (Input.GetButtonDown("Sacrifice"))
+                {
+                    pController.takePlayerHealth();
+                    pController.addAmmo(10);
+                }
+            }
+
             if (debugMode)
             {
                 if (Input.GetKeyDown(KeyCode.F1))
@@ -87,5 +79,28 @@ public class PlayerInput : MonoBehaviour
             GUIController.instance.togglePauseScreen(true);
             GameController.instance.isPaused = true;
         }
+
+        //if (Input.GetKeyDown(KeyCode.F3))
+        //{
+        //    debugMode = !debugMode;
+        //}
     }
+
+    #region Sprint Code
+    //    if (pController.getHasSprint())
+    //    {
+    //    if ((Input.GetButtonDown("Sprint")) && ((_horDir > 0 || _horDir< 0) || (_vertDir > 0 || _vertDir< 0)))
+    //    {
+    //        pMotor.toggleSprint(true);
+    //    }
+
+    //    if (Input.GetButtonDown("Sprint") && pMotor.getIsSprinting())
+    //    {
+    //        pMotor.toggleSprint(false);
+    //    }
+    //    else if ((_horDir > 0 && _horDir< 0) && (_vertDir > 0 && _vertDir< 0))
+    //    {
+    //        pMotor.toggleSprint(false);
+    //    }
+    #endregion
 }

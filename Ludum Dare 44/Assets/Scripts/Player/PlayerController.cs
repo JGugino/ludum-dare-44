@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     private PlayerInput pInput;
 
     [SerializeField]
-    private GameObject bloodPrefab;
+    private GameObject bloodPrefab = null;
 
     private int defaultMaxHealth = 5;
 
@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isDead = false;
 
-    private Animator pAnimator;
+    private Animator pAnimator = null;
 
     [SerializeField]
     private SpriteRenderer playerBody = null;
@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Sprite[] playerBodies = new Sprite[2];
 
+    [SerializeField]
     private int currentBloodAmmo = 0, maxBloodAmmo = 100;
 
     private bool hasDoubleShot = false;
@@ -34,6 +35,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        currentBloodAmmo = maxBloodAmmo;
+
         playerCurrentHealth = playerMaxHealth;
 
         pMotor = GetComponent<PlayerMotor>();
@@ -41,6 +44,8 @@ public class PlayerController : MonoBehaviour
         pInput = GetComponent<PlayerInput>();
 
         pAnimator = GetComponent<Animator>();
+
+        GUIController.instance.updateAmmoSlider(currentBloodAmmo);
     }
 
     private void Update()
@@ -48,6 +53,21 @@ public class PlayerController : MonoBehaviour
         if (playerCurrentHealth <= 0 || HealthController.instance.spawnedHearts.Count <= 0)
         {
             killPlayer();
+        }
+
+        if (currentBloodAmmo < 30)
+        {
+            if (!GUIController.instance.getSacrificeText().activeSelf)
+            {
+                GUIController.instance.toggleSacrificeText(true);
+            }
+        }
+        else if(currentBloodAmmo >= 30)
+        {
+            if (GUIController.instance.getSacrificeText().activeSelf)
+            {
+                GUIController.instance.toggleSacrificeText(false);
+            }
         }
     }
 
@@ -69,26 +89,37 @@ public class PlayerController : MonoBehaviour
 
     public void spawnBloodShot(Vector3 _dest)
     {
-        if (bloodPrefab != null && _dest != Vector3.zero)
+        if (currentBloodAmmo > 0)
         {
-            if (!hasDoubleShot)
+            if (bloodPrefab != null && _dest != Vector3.zero)
             {
-                GameObject currentShot = Instantiate(bloodPrefab, transform.position, Quaternion.identity);
+                if (!hasDoubleShot)
+                {
+                    GameObject currentShot = Instantiate(bloodPrefab, transform.position, Quaternion.identity);
 
-                currentShot.GetComponent<BloodController>()._dest = _dest;
+                    currentShot.GetComponent<BloodController>()._dest = _dest;
+
+                    currentBloodAmmo--;
+
+                    GUIController.instance.updateAmmoSlider(currentBloodAmmo);
+                }
+                else if (hasDoubleShot)
+                {
+                    GameObject currentShotOne = Instantiate(bloodPrefab, new Vector3(transform.position.x + 0.5f, transform.position.y, transform.position.z), Quaternion.identity);
+
+                    GameObject currentShotTwo = Instantiate(bloodPrefab, new Vector3(transform.position.x - 0.5f, transform.position.y, transform.position.z), Quaternion.identity);
+
+                    currentShotOne.GetComponent<BloodController>()._dest = new Vector3(_dest.x + 0.5f, _dest.y, _dest.z);
+
+                    currentShotTwo.GetComponent<BloodController>()._dest = new Vector3(_dest.x - 0.5f, _dest.y, _dest.z);
+
+                    currentBloodAmmo--;
+
+                    GUIController.instance.updateAmmoSlider(currentBloodAmmo);
+                }
+
+                //AudioManager.Instance.playSound("Blood Shoot");
             }
-            else if(hasDoubleShot)
-            {
-                GameObject currentShotOne = Instantiate(bloodPrefab, new Vector3(transform.position.x + 0.5f, transform.position.y, transform.position.z), Quaternion.identity);
-
-                GameObject currentShotTwo = Instantiate(bloodPrefab, new Vector3(transform.position.x - 0.5f, transform.position.y, transform.position.z), Quaternion.identity);
-
-                currentShotOne.GetComponent<BloodController>()._dest = new Vector3(_dest.x + 0.5f, _dest.y, _dest.z);
-
-                currentShotTwo.GetComponent<BloodController>()._dest = new Vector3(_dest.x - 0.5f, _dest.y, _dest.z);
-            }
-
-            //AudioManager.Instance.playSound("Blood Shoot");
         }
     }
 
@@ -147,6 +178,20 @@ public class PlayerController : MonoBehaviour
         HealthController.instance.addHeart(1);
     }
 
+    public void addAmmo(int _amount)
+    {
+        if ((currentBloodAmmo <= maxBloodAmmo) && ((currentBloodAmmo + _amount) <= maxBloodAmmo))
+        {
+            currentBloodAmmo += _amount;
+            GUIController.instance.updateAmmoSlider(currentBloodAmmo);
+        }
+        else
+        {
+            currentBloodAmmo = maxBloodAmmo;
+            GUIController.instance.updateAmmoSlider(currentBloodAmmo);
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!pInput.debugMode)
@@ -170,19 +215,7 @@ public class PlayerController : MonoBehaviour
 
             if (collision.collider.CompareTag("Alien Two"))
             {
-                if (playerCurrentHealth > 0)
-                {
-                    HealthController.instance.removeHearts(1);
-                    playerMaxHealth--;
-                    playerCurrentHealth = playerMaxHealth;
-
-                    //AudioManager.Instance.playSound("Player Hurt");
-
-                    if (playerCurrentHealth <= 0)
-                    {
-                        killPlayer();
-                    }
-                }
+                takePlayerHealth();
             }
         }
 
@@ -216,6 +249,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void takePlayerHealth()
+    {
+        if (playerCurrentHealth > 0)
+        {
+            HealthController.instance.removeHearts(1);
+            playerMaxHealth--;
+            playerCurrentHealth = playerMaxHealth;
+
+            //AudioManager.Instance.playSound("Player Hurt");
+
+            if (playerCurrentHealth <= 0)
+            {
+                killPlayer();
+            }
+        }
+    }
+
     public Animator getAnimator()
     {
         return pAnimator;
@@ -229,6 +279,21 @@ public class PlayerController : MonoBehaviour
     public int getPlayerCurrentHealth()
     {
         return playerCurrentHealth;
+    }
+
+    public int getPlayerMaxHealth()
+    {
+        return playerMaxHealth;
+    }
+
+    public int getPlayerCurrentAmmo()
+    {
+        return currentBloodAmmo;
+    }
+
+    public int getPlayerMaxAmmo()
+    {
+        return maxBloodAmmo;
     }
 
     public bool getHasSprint()

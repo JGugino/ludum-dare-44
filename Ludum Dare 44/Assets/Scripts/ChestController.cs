@@ -7,23 +7,23 @@ public class ChestController : MonoBehaviour
     [SerializeField]
     private GameObject openText;
 
-    //private string[] possibleItems = { "health", "liver", "heart", "lung", "kidney"};
+    private string[] possibleItems = { "health", "liver", "heart", "lung", "kidney"};
 
-    private string[] possibleItems = { "health"};
+    //private string[] possibleItems = { "health"};
 
-    private float interactRange = 3f;
+    //private float interactRange = 3f;
 
     private float distance;
 
     private bool isOpen = false;
 
-    private void Update()
-    {
-        if (GameController.instance.currentPlayer != null)
-        {
-            distance = Vector3.Distance(transform.position, GameController.instance.currentPlayer.position);
-        }
-    }
+    //private void Update()
+    //{
+    //    if (GameController.instance.currentPlayer != null)
+    //    {
+    //        distance = Vector3.Distance(transform.position, GameController.instance.currentPlayer.position);
+    //    }
+    //}
 
     public void openChest()
     {

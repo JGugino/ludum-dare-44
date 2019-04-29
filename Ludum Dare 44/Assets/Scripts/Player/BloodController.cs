@@ -10,7 +10,7 @@ public class BloodController : MonoBehaviour
 
     public Vector3 _dest = Vector3.zero;
 
-    private float destroyDelay = 0.5f;
+    private float destroyDelay = 1f;
 
 
     private void Start()

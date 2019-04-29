@@ -37,6 +37,10 @@ TagManager:
   - Pause Menu
   - Resume Button
   - Pause Exit Button
+  - Ammo Slider
+  - Ammo Text
+  - Dirt Tile
+  - Sacrifice Text
   layers:
   - Default
   - TransparentFX
@@ -48,8 +52,8 @@ TagManager:
   - 
   - Rooms
   - MiniMap
-  - 
-  - 
+  - Dirt
+  - Ground
   - 
   - 
   - 
