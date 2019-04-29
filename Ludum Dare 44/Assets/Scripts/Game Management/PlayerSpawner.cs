@@ -10,27 +10,22 @@ public class PlayerSpawner : MonoBehaviour
 
     public Transform playerSpawn;
 
-    public Transform currentPlayer;
+
 
     private void Awake()
     {
         instance = this;
     }
 
-    void Start()
+    public void spawnPlayer()
     {
-        spawnPlayer();  
-    }
-
-    void spawnPlayer()
-    {
-        if (playerPrefab != null && currentPlayer == null)
+        if (playerPrefab != null && GameController.instance.currentPlayer == null)
         {
-            currentPlayer = Instantiate(playerPrefab, playerSpawn.position, Quaternion.identity).transform;
+            GameController.instance.currentPlayer = Instantiate(playerPrefab, playerSpawn.position, Quaternion.identity).transform;
 
-            HealthController.instance.addHeart(currentPlayer.GetComponent<PlayerController>().getPlayerCurrentHealth());
+            HealthController.instance.addHeart(GameController.instance.currentPlayer.GetComponent<PlayerController>().getPlayerCurrentHealth());
 
-            CameraTracker.instance.target = currentPlayer;
+            CameraTracker.instance.target = GameController.instance.currentPlayer;
         }
     }
 }

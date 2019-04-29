@@ -20,6 +20,23 @@ TagManager:
   - Merchant Spawn
   - Merchant Screen
   - Gameplay Screen
+  - Alien Two
+  - Upgrade Icons
+  - Exit Button
+  - Restart Button
+  - Death Screen
+  - Loading Screen
+  - Play Button
+  - Menu Exit Button
+  - GameManager
+  - Start Room
+  - Rooms Parent
+  - Aliens Parent
+  - Ladder
+  - Merchant Spawner
+  - Pause Menu
+  - Resume Button
+  - Pause Exit Button
   layers:
   - Default
   - TransparentFX
@@ -29,8 +46,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Rooms
+  - MiniMap
   - 
   - 
   - 

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class AlienController : MonoBehaviour
 {
+    [SerializeField]
     private int alienHealth = 4;
 
-    private float triggerDistance = 5f;
+    private float triggerDistance = 10f;
 
     [SerializeField]
     private float alienSpeed = 3f;
@@ -15,19 +16,38 @@ public class AlienController : MonoBehaviour
 
     private int dropOffset = 5;
 
-    private string[] possibleDrops = { "lung", "lung", "lung", "liver", "liver", "liver", "kidney", "kidney", "heart" };
+    [SerializeField]
+    private string[] possibleDrops;
+
+    private Animator alienAnimator;
+
+    private void Start()
+    {
+        alienAnimator = GetComponent<Animator>();
+    }
 
     void Update()
     {
         if (!GameController.instance.isPaused)
         {
-            if (PlayerSpawner.instance.currentPlayer != null)
+            if (GameController.instance.currentPlayer != null)
             {
-                float dist = Vector3.Distance(transform.position, PlayerSpawner.instance.currentPlayer.position);
+                float dist = Vector3.Distance(transform.position, GameController.instance.currentPlayer.position);
 
                 if (dist <= triggerDistance)
                 {
-                    transform.position = Vector3.MoveTowards(transform.position, PlayerSpawner.instance.currentPlayer.position, alienSpeed * Time.deltaTime);
+                    transform.position = Vector3.MoveTowards(transform.position, GameController.instance.currentPlayer.position, alienSpeed * Time.deltaTime);
+                    if (!alienAnimator.GetBool("isWalking"))
+                    {
+                        alienAnimator.SetBool("isWalking", true);
+                    }
+                }
+                else
+                {
+                    if (alienAnimator.GetBool("isWalking"))
+                    {
+                        alienAnimator.SetBool("isWalking", false);
+                    }
                 }
             }
         }
@@ -45,6 +65,7 @@ public class AlienController : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             GameController.instance.createItem(possibleDrops[Random.Range(0, possibleDrops.Length)], transform.position);
+            //AudioManager.Instance.playSound("Alien Die");
             Destroy(gameObject);
         }
     }
@@ -57,6 +78,8 @@ public class AlienController : MonoBehaviour
             {
                 Destroy(collision.gameObject);
                 alienHealth--;
+
+                //AudioManager.Instance.playSound("Alien Hurt");
                 return;
             }
         }

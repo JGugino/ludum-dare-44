@@ -28,10 +28,24 @@ public class HealthController : MonoBehaviour
 
     public void removeHearts(int heartsToRemove)
     {
-        for (int i = 0; i < heartsToRemove; i++)
+        if (spawnedHearts.Count > 0)
         {
-            Destroy(spawnedHearts[i], .5f);
-            spawnedHearts.Remove(spawnedHearts[i]);
+            for (int i = 0; i < heartsToRemove; i++)
+            {
+                Destroy(spawnedHearts[i]);
+                spawnedHearts.Remove(spawnedHearts[i]);
+            }
         }
+    }
+
+    public void resetHearts(int _amount)
+    {
+        foreach (GameObject heart in spawnedHearts)
+        {
+            spawnedHearts.Remove(heart);
+            Destroy(heart.gameObject);
+        }
+
+        addHeart(_amount);
     }
 }

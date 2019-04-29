@@ -7,6 +7,8 @@ public class PlayerInput : MonoBehaviour
     private PlayerController pController;
     private PlayerMotor pMotor;
 
+    public bool debugMode = false;
+
     private void Awake()
     {
         pMotor = GetComponent<PlayerMotor>();
@@ -19,6 +21,23 @@ public class PlayerInput : MonoBehaviour
         {
             float _horDir = Input.GetAxisRaw("Horizontal");
             float _vertDir = Input.GetAxisRaw("Vertical");
+
+            if (pController.getHasSprint())
+            {
+                if ((Input.GetButtonDown("Sprint")) && ((_horDir > 0 || _horDir < 0) || (_vertDir > 0 || _vertDir < 0)))
+                {
+                    pMotor.toggleSprint(true);
+                }
+
+                if (Input.GetButtonDown("Sprint") && pMotor.getIsSprinting())
+                {
+                    pMotor.toggleSprint(false);
+                }
+                else if ((_horDir > 0 && _horDir < 0) && (_vertDir > 0 && _vertDir < 0))
+                {
+                    pMotor.toggleSprint(false);
+                }
+            }
 
             pMotor.playerMove(_horDir, _vertDir);
 
@@ -45,11 +64,28 @@ public class PlayerInput : MonoBehaviour
                     }
                 }
             }
+
+            if (debugMode)
+            {
+                if (Input.GetKeyDown(KeyCode.F1))
+                {
+                    GameController.instance.addOrgans("lung", 20);
+                    GameController.instance.addOrgans("liver", 20);
+                    GameController.instance.addOrgans("kidney", 20);
+                    GameController.instance.addOrgans("heart", 20);
+                }
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Escape) && GUIController.instance.getStoreUI().activeSelf)
         {
             GUIController.instance.toggleStoreUI(false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && !GUIController.instance.getStoreUI().activeSelf)
+        {
+            GUIController.instance.togglePauseScreen(true);
+            GameController.instance.isPaused = true;
         }
     }
 }

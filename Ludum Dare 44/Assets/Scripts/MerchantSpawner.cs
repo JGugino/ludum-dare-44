@@ -15,7 +15,9 @@ public class MerchantSpawner : MonoBehaviour
     public GameObject currentMerchant = null;
 
     private float merchantSpawnDelay = 2;
-    private bool merchantSpawned = false;
+    public bool merchantSpawned = false;
+
+    public bool findingNewSpawns = false;
 
     private void Awake()
     {
@@ -43,7 +45,7 @@ public class MerchantSpawner : MonoBehaviour
                 {
                     if (i == GameController.instance.createdRooms.Count -1)
                     {
-                        Instantiate(ladderPrefab, GameController.instance.createdRooms[i].GetComponentInChildren<CenterPoint>().gameObject.transform.position, Quaternion.identity);
+                        Instantiate(ladderPrefab, GameController.instance.createdRooms[i].GetComponentInChildren<CenterPoint>().gameObject.transform.position, Quaternion.identity, GameController.instance.roomsParent.transform);
                         merchantSpawned = true;
                     }
                 }
@@ -52,6 +54,14 @@ public class MerchantSpawner : MonoBehaviour
             {
                 merchantSpawnDelay -= Time.deltaTime;
             }
+        }
+    }
+
+    public void removeOldPoints()
+    {
+        for (int i = 0; i < possibleSpawns.Count; i++)
+        {
+            possibleSpawns.Remove(possibleSpawns[i]);
         }
     }
 
@@ -70,8 +80,20 @@ public class MerchantSpawner : MonoBehaviour
     {
         //Debug.Log(possibleSpawns.ToArray().Length);
 
-        Transform pickedSpawn = possibleSpawns[Random.Range(0, possibleSpawns.ToArray().Length)].GetComponent<Transform>();
+        if (possibleSpawns.Count > 0)
+        {
+            if (currentMerchant == null)
+            {
+                Transform pickedSpawn = possibleSpawns[Random.Range(0, possibleSpawns.ToArray().Length)].GetComponent<Transform>();
 
-        currentMerchant = Instantiate(merchantPrefab, pickedSpawn.position, Quaternion.identity);
+                currentMerchant = Instantiate(merchantPrefab, pickedSpawn.position, Quaternion.identity, GameController.instance.roomsParent.transform);
+            }
+
+        }
+    }
+
+    public List<GameObject> getPossibleSpawns()
+    {
+        return possibleSpawns;
     }
 }

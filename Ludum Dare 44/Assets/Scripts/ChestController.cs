@@ -19,7 +19,10 @@ public class ChestController : MonoBehaviour
 
     private void Update()
     {
-        distance = Vector3.Distance(transform.position, PlayerSpawner.instance.currentPlayer.position);
+        if (GameController.instance.currentPlayer != null)
+        {
+            distance = Vector3.Distance(transform.position, GameController.instance.currentPlayer.position);
+        }
     }
 
     public void openChest()

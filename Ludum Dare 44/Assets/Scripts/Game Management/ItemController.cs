@@ -15,6 +15,18 @@ public class ItemController : MonoBehaviour
     [SerializeField]
     private Sprite[] possibleItems = new Sprite[1];
 
+    private float attractDistance = 3f, attractSpeed = 5f;
+
+    private void Update()
+    {
+        float dist = Vector3.Distance(transform.position, GameController.instance.currentPlayer.position);
+
+        if (dist <= attractDistance)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, GameController.instance.currentPlayer.position, 2f*Time.deltaTime);
+        }
+    }
+
     public void setItemType(string _type)
     {
         if (_type != null)

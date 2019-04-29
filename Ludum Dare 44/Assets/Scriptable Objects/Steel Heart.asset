@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3680f4c15bb1bc4fbf6de2d74799b85, type: 3}
-  m_Name: Chest Upgrade
+  m_Name: Steel Heart
   m_EditorClassIdentifier: 
-  upgradeIcon: {fileID: 21300000, guid: d476b0d5bb42eeb48b23e8c2dfe080e8, type: 3}
-  upgradeName: Chest
-  upgradeDesc: Its just a chest...
-  lungCost: 10
-  liverCost: 5
-  kidneyCost: 1
-  heartCost: 1
+  upgradeIcon: {fileID: 21300000, guid: 5dd763f6f2ba2a2418941f7edd53bbd3, type: 3}
+  upgradeName: Steel Heart
+  upgradeDesc: Gain a heart of steel! Can not be lost from enemy attacks but can be
+    sacrificed.
+  lungCost: 100
+  liverCost: 100
+  kidneyCost: 80
+  heartCost: 40

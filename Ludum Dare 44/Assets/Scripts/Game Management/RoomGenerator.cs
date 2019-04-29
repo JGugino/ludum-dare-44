@@ -8,6 +8,9 @@ public class RoomGenerator : MonoBehaviour
     public int doorDirection;
 
     [SerializeField]
+    private GameObject roomsParentPrefab, merchantSpawnerPrefab;
+
+    [SerializeField]
     private GameObject[] bottomRooms = new GameObject[4], topRooms = new GameObject[4], leftRooms = new GameObject[4], rightRooms = new GameObject[4];
 
     [SerializeField]
@@ -26,11 +29,22 @@ public class RoomGenerator : MonoBehaviour
     {
         Destroy(gameObject, waitTime);
         //genLevel();
+
+        if (!GameObject.FindGameObjectWithTag("Rooms Parent"))
+        {
+            GameController.instance.roomsParent = Instantiate(roomsParentPrefab, Vector3.zero, Quaternion.identity);
+            RoomSpawnStarter.instance.roomsParent = GameController.instance.roomsParent.transform;
+        }
+
+        if (!GameObject.FindGameObjectWithTag("Merchant Spawner"))
+        {
+            Instantiate(merchantSpawnerPrefab, Vector3.zero, Quaternion.identity, GameController.instance.roomsParent.transform);
+        }
+
         Invoke("genLevel", 0.1f);
     }
     void genLevel()
     {
-        //&& GameController.instance.createdRooms.ToArray().Length < maxRooms
         if (hasSpawned == false )
         {
             if (doorDirection == 1)
@@ -38,7 +52,7 @@ public class RoomGenerator : MonoBehaviour
                 if (!hasSpawned)
                 {
                     rand = Random.Range(0, bottomRooms.Length);
-                    GameController.instance.createdRooms.Add(Instantiate(bottomRooms[rand], transform.position, Quaternion.identity));
+                    GameController.instance.createdRooms.Add(Instantiate(bottomRooms[rand], transform.position, Quaternion.identity, GameController.instance.roomsParent.transform));
                     hasSpawned = true;
                     return;
                 }
@@ -48,7 +62,7 @@ public class RoomGenerator : MonoBehaviour
                 if (!hasSpawned)
                 {
                     rand = Random.Range(0, topRooms.Length);
-                    GameController.instance.createdRooms.Add(Instantiate(topRooms[rand], transform.position, Quaternion.identity));
+                    GameController.instance.createdRooms.Add(Instantiate(topRooms[rand], transform.position, Quaternion.identity, GameController.instance.roomsParent.transform));
                     hasSpawned = true;
                     return;
                 }
@@ -58,7 +72,7 @@ public class RoomGenerator : MonoBehaviour
                 if (!hasSpawned)
                 {
                     rand = Random.Range(0, leftRooms.Length);
-                    GameController.instance.createdRooms.Add(Instantiate(leftRooms[rand], transform.position, Quaternion.identity));
+                    GameController.instance.createdRooms.Add(Instantiate(leftRooms[rand], transform.position, Quaternion.identity, GameController.instance.roomsParent.transform));
                     hasSpawned = true;
                     return;
                 }
@@ -68,7 +82,7 @@ public class RoomGenerator : MonoBehaviour
                 if (!hasSpawned)
                 {
                     rand = Random.Range(0, rightRooms.Length);
-                    GameController.instance.createdRooms.Add(Instantiate(rightRooms[rand], transform.position, Quaternion.identity));
+                    GameController.instance.createdRooms.Add(Instantiate(rightRooms[rand], transform.position, Quaternion.identity, GameController.instance.roomsParent.transform));
                     hasSpawned = true;
                     return;
                 }
@@ -84,7 +98,7 @@ public class RoomGenerator : MonoBehaviour
         {
             if (collision.GetComponent<RoomGenerator>().hasSpawned == false && hasSpawned == false)
             {
-                Instantiate(closedRoom, transform.position, Quaternion.identity);
+                Instantiate(closedRoom, transform.position, Quaternion.identity, GameController.instance.roomsParent.transform);
                 Destroy(gameObject);
             }
             hasSpawned = true;

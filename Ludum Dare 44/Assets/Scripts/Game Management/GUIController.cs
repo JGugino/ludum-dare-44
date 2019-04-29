@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GUIController : MonoBehaviour
 {
     public static GUIController instance;
 
-    private GameObject gameplayUI, storeUI;
+    private GameObject gameplayUI, storeUI, deathScreen, loadingScreen, pauseMenu;
+
+    private Button restartButton, exitButton, playButton, menuExitButton, pauseExitButton, resumeButton;
+
+    private Transform upgradeIconParent;
 
     private TextMeshProUGUI lungAmount, liverAmount, kidneyAmount, heartAmount;
 
@@ -16,9 +21,13 @@ public class GUIController : MonoBehaviour
         instance = this;
     }
 
-    private void Start()
+    public void findMenuUI()
     {
-        findGameUI();
+        playButton = GameObject.FindGameObjectWithTag("Play Button").GetComponent<Button>();
+        menuExitButton = GameObject.FindGameObjectWithTag("Menu Exit Button").GetComponent<Button>();
+
+        playButton.onClick.AddListener(delegate { GameController.instance.startGame(); });
+        menuExitButton.onClick.AddListener(delegate { GameController.instance.exitGame(); });
     }
 
     public void findGameUI()
@@ -27,7 +36,39 @@ public class GUIController : MonoBehaviour
 
         storeUI = GameObject.FindGameObjectWithTag("Merchant Screen");
 
+        deathScreen = GameObject.FindGameObjectWithTag("Death Screen");
+
+        loadingScreen = GameObject.FindGameObjectWithTag("Loading Screen");
+
+        pauseMenu = GameObject.FindGameObjectWithTag("Pause Menu");
+
+        restartButton = GameObject.FindGameObjectWithTag("Restart Button").GetComponent<Button>();
+
+        exitButton = GameObject.FindGameObjectWithTag("Exit Button").GetComponent<Button>();
+
+        resumeButton = GameObject.FindGameObjectWithTag("Resume Button").GetComponent<Button>();
+
+        pauseExitButton = GameObject.FindGameObjectWithTag("Pause Exit Button").GetComponent<Button>();
+
+        upgradeIconParent = GameObject.FindGameObjectWithTag("Upgrade Icons").GetComponent<Transform>();
+
+        restartButton.gameObject.SetActive(false);
+
+        exitButton.onClick.AddListener(delegate { GameController.instance.exitToMenu(); });
+
+        pauseExitButton.onClick.AddListener(delegate { GameController.instance.exitToMenu(); });
+
+        resumeButton.onClick.AddListener(delegate { GameController.instance.resumeGame(); });
+
+        //restartButton.onClick.AddListener(delegate { GameController.instance.createNewRooms(); });
+
         findOrganUIElements();
+
+        toggleDeathScreen(false);
+
+        togglePauseScreen(false);
+
+        //toggleLoadingScreen(false);
 
         toggleStoreUI(false);
     }
@@ -51,6 +92,21 @@ public class GUIController : MonoBehaviour
     {
         storeUI.SetActive(_on);
         GameController.instance.isPaused = _on;
+    }
+
+    public void toggleDeathScreen(bool _on)
+    {
+        deathScreen.SetActive(_on);
+        GameController.instance.isPaused = _on;
+    }
+    public void toggleLoadingScreen(bool _on)
+    {
+        loadingScreen.SetActive(_on);
+    }
+
+    public void togglePauseScreen(bool _on)
+    {
+        pauseMenu.SetActive(_on);
     }
 
     public void updateAllAmounts()
@@ -84,5 +140,10 @@ public class GUIController : MonoBehaviour
     public GameObject getStoreUI()
     {
         return storeUI;
+    }
+
+    public Transform getUpgradeIconsParent()
+    {
+        return upgradeIconParent;
     }
 }

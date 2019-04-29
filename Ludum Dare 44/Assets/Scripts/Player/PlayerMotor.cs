@@ -5,10 +5,11 @@ public class PlayerMotor : MonoBehaviour
     private PlayerController pController;
 
     [SerializeField, Header("Player Move Speed:")]
-    private float playerSpeed = 5f;
+    private float playerWalkSpeed = 3.5f, playerSprintSpeed = 10f;
 
     private bool isWalking = false;
 
+    private bool isSprinting = false;
     private void Start()
     {
         pController = GetComponent<PlayerController>();
@@ -19,14 +20,30 @@ public class PlayerMotor : MonoBehaviour
         //Horizontal Movement
         if (_horDir < 0)
         {
-            transform.position = new Vector3(transform.position.x - playerSpeed * Time.deltaTime, transform.position.y, transform.position.z);
+            if (pController.hasSprint)
+            {
+                transform.position = new Vector3(transform.position.x - playerSprintSpeed * Time.deltaTime, transform.position.y, transform.position.z);
+            }
+            else
+            {
+                transform.position = new Vector3(transform.position.x - playerWalkSpeed * Time.deltaTime, transform.position.y, transform.position.z);
+            }
+
             pController.startWalkAnimation();
             pController.setPlayerBody("forward");
             isWalking = true;
         }
         else if (_horDir > 0)
         {
-            transform.position = new Vector3(transform.position.x + playerSpeed * Time.deltaTime, transform.position.y, transform.position.z);
+            if (pController.hasSprint)
+            {
+                transform.position = new Vector3(transform.position.x + playerSprintSpeed * Time.deltaTime, transform.position.y, transform.position.z);
+            }
+            else
+            {
+                transform.position = new Vector3(transform.position.x + playerWalkSpeed * Time.deltaTime, transform.position.y, transform.position.z);
+            }
+
             pController.startWalkAnimation();
             pController.setPlayerBody("forward");
             isWalking = true;
@@ -44,14 +61,30 @@ public class PlayerMotor : MonoBehaviour
         //Vertical Movement
         if (_vertDir < 0)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y - playerSpeed * Time.deltaTime, transform.position.z);
+            if (isSprinting)
+            {
+                transform.position = new Vector3(transform.position.x, transform.position.y - playerSprintSpeed * Time.deltaTime, transform.position.z);
+            }
+            else
+            {
+                transform.position = new Vector3(transform.position.x, transform.position.y - playerWalkSpeed * Time.deltaTime, transform.position.z);
+            }
+            
             pController.startWalkAnimation();
             pController.setPlayerBody("forward");
             isWalking = true;
         }
         else if (_vertDir > 0)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y + playerSpeed * Time.deltaTime, transform.position.z);
+            if (isSprinting)
+            {
+                transform.position = new Vector3(transform.position.x, transform.position.y + playerSprintSpeed * Time.deltaTime, transform.position.z);
+            }
+            else
+            {
+                transform.position = new Vector3(transform.position.x, transform.position.y + playerWalkSpeed * Time.deltaTime, transform.position.z);
+            }
+
             pController.startWalkAnimation();
             pController.setPlayerBody("backward");
             isWalking = true;
@@ -69,6 +102,16 @@ public class PlayerMotor : MonoBehaviour
             pController.stopWalkAnimation();
         }
 
+    }
+
+    public bool getIsSprinting()
+    {
+        return isSprinting;
+    }
+
+    public void toggleSprint(bool _on)
+    {
+        isSprinting = _on;
     }
 
 }

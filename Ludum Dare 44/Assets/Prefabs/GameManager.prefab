@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7629977313212930027}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,8 +46,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7612097482719644373, guid: 6c74e9e3df26b5d499df305ee0c81797,
     type: 3}
+  upgradeIconPrefab: {fileID: 2830680853556093138, guid: 876e084ea9582ce4ab29c9bd6d9388f0,
+    type: 3}
   createdRooms: []
   createdItems: []
+  isPaused: 0
+  roomsParent: {fileID: 0}
+  currentPlayer: {fileID: 0}
 --- !u!114 &7629977313212930027
 MonoBehaviour:
   m_ObjectHideFlags: 0

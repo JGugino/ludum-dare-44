@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3680f4c15bb1bc4fbf6de2d74799b85, type: 3}
-  m_Name: Life Upgrade
+  m_Name: Extra Life
   m_EditorClassIdentifier: 
-  upgradeIcon: {fileID: 21300000, guid: 0859c643a88a30040a5e274e23ab2526, type: 3}
-  upgradeName: Heart
-  upgradeDesc: Gives you move life
-  lungCost: 5
-  liverCost: 5
-  kidneyCost: 5
-  heartCost: 1
+  upgradeIcon: {fileID: 21300000, guid: 03dd2e5c4c5c4f14992bd6d293f8ec5f, type: 3}
+  upgradeName: Extra Life
+  upgradeDesc: Grants one regular heart
+  lungCost: 80
+  liverCost: 80
+  kidneyCost: 65
+  heartCost: 20

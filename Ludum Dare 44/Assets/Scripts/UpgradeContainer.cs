@@ -12,6 +12,9 @@ public class UpgradeContainer : MonoBehaviour
     private Image upgradeIcon;
 
     [SerializeField]
+    private Button buyButton;
+
+    [SerializeField]
     private TextMeshProUGUI upgradeName, upgradeDesc, lungCost, liverCost, kidneyCost, heartCost;
 
     public void configurePrefab(UpgradeItem _upgrade)
@@ -30,5 +33,16 @@ public class UpgradeContainer : MonoBehaviour
             kidneyCost.text = currentUpgrade.kidneyCost.ToString();
             heartCost.text = currentUpgrade.heartCost.ToString();
         }
+    }
+
+    public void resetButton()
+    {
+        buyButton.onClick.RemoveAllListeners();
+        buyButton.interactable = false;
+    }
+
+    public Button getBuyButton()
+    {
+        return buyButton;
     }
 }

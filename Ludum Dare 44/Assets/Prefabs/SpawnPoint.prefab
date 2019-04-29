@@ -46,6 +46,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorDirection: 0
+  roomsParentPrefab: {fileID: 130654270471579650, guid: d7b732f739b06d8479ad4c3236294631,
+    type: 3}
+  merchantSpawnerPrefab: {fileID: 1073254975323356882, guid: 856576065831648478a72564c77607ef,
+    type: 3}
   bottomRooms:
   - {fileID: 5489766506935986711, guid: f12bfd0088754eb4dbb72ca303644a91, type: 3}
   - {fileID: 5255104229056908927, guid: 529c73e8ea75bbc449a37fadac9a6ab4, type: 3}
