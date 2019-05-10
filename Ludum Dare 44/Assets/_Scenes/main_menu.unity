@@ -1200,6 +1200,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameManagerPrefab: {fileID: 9077385801305325330, guid: 6f4abd859b22e4c409ab48fdb99f1ea2,
     type: 3}
+  audioManagerPrefab: {fileID: 614842093357872649, guid: 4c5b2db17cf0cfb4ba69647674b0db54,
+    type: 3}
 --- !u!1 &2015888862
 GameObject:
   m_ObjectHideFlags: 0

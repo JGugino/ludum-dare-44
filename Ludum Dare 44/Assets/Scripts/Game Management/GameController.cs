@@ -25,6 +25,8 @@ public class GameController : MonoBehaviour
 
     public Transform currentPlayer;
 
+    public GameObject lastRoom = null;
+
     [SerializeField]
     private int currentLevel = 1;
 
@@ -35,7 +37,9 @@ public class GameController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void startGame() {
+    #region Init start game
+    public void startGame()
+    {
         SceneManager.LoadScene("main_game");
         StartCoroutine(lateStart());
     }
@@ -50,6 +54,7 @@ public class GameController : MonoBehaviour
         PlayerSpawner.instance.spawnPlayer();
         GUIController.instance.toggleLoadingScreen(false);
     }
+    #endregion
 
     public void resumeGame()
     {
@@ -81,6 +86,7 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene("main_menu");
     }
 
+    #region Create new rooms
     public void createNewRooms()
     {
         GUIController.instance.toggleLoadingScreen(true);
@@ -107,26 +113,17 @@ public class GameController : MonoBehaviour
 
         RoomSpawnStarter.instance.spawnStartRoom();
 
-        //MerchantSpawner.instance.merchantSpawned = false;
-
-       // MerchantSpawner.instance.findNewSpawns();
-
-        //Transform pickedSpawn = MerchantSpawner.instance.getPossibleSpawns()[Random.Range(0, MerchantSpawner.instance.getPossibleSpawns().ToArray().Length)].GetComponent<Transform>();
-
-       // MerchantSpawner.instance.currentMerchant.transform.position = pickedSpawn.position;
-
-        //currentPlayer.GetComponent<PlayerController>().resetPlayerStats();
-
         currentPlayer.position = PlayerSpawner.instance.playerSpawn.position;
 
         currentPlayer.gameObject.SetActive(true);
 
         GUIController.instance.toggleDeathScreen(false);
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.5f);
 
         GUIController.instance.toggleLoadingScreen(false);
     }
+    #endregion
 
     public void createItem(string _type, Vector3 _location , float _dropOffset = 1.4f)
     {
@@ -142,6 +139,7 @@ public class GameController : MonoBehaviour
         go.GetComponent<Image>().sprite = upgradeIcon;
     }
 
+    #region Organ Controls
     public void addOrgans(string _type, int amount)
     {
         switch (_type)
@@ -194,6 +192,7 @@ public class GameController : MonoBehaviour
                 break;
         }
     }
+    #endregion
 
     public int getLungAmount()
     {

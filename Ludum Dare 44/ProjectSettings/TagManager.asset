@@ -41,6 +41,7 @@ TagManager:
   - Ammo Text
   - Dirt Tile
   - Sacrifice Text
+  - AudioManager
   layers:
   - Default
   - TransparentFX

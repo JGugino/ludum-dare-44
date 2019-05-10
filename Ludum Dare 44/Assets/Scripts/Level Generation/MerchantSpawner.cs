@@ -29,7 +29,6 @@ public class MerchantSpawner : MonoBehaviour
         possibleSpawns = new List<GameObject>();
 
         findSpawns();
-        //Invoke("spawnMerchant", 0.1f);
     }
 
     private void Update()
@@ -45,7 +44,12 @@ public class MerchantSpawner : MonoBehaviour
                 {
                     if (i == GameController.instance.createdRooms.Count -1)
                     {
-                        Instantiate(ladderPrefab, GameController.instance.createdRooms[i].GetComponentInChildren<CenterPoint>().gameObject.transform.position, Quaternion.identity, GameController.instance.roomsParent.transform);
+                        GameController.instance.lastRoom = GameController.instance.createdRooms[i];
+
+                          //Instantiate(ladderPrefab,
+                          //GameController.instance.createdRooms[i].GetComponentInChildren<CenterPoint>().gameObject.transform.position, 
+                          //Quaternion.identity, GameController.instance.roomsParent.transform);
+
                         merchantSpawned = true;
                     }
                 }
@@ -54,14 +58,6 @@ public class MerchantSpawner : MonoBehaviour
             {
                 merchantSpawnDelay -= Time.deltaTime;
             }
-        }
-    }
-
-    public void removeOldPoints()
-    {
-        for (int i = 0; i < possibleSpawns.Count; i++)
-        {
-            possibleSpawns.Remove(possibleSpawns[i]);
         }
     }
 
@@ -78,17 +74,24 @@ public class MerchantSpawner : MonoBehaviour
 
     public void spawnMerchant()
     {
-        //Debug.Log(possibleSpawns.ToArray().Length);
-
         if (possibleSpawns.Count > 0)
         {
             if (currentMerchant == null)
             {
                 Transform pickedSpawn = possibleSpawns[Random.Range(0, possibleSpawns.ToArray().Length)].GetComponent<Transform>();
 
-                currentMerchant = Instantiate(merchantPrefab, pickedSpawn.position, Quaternion.identity, GameController.instance.roomsParent.transform);
+                currentMerchant = Instantiate(merchantPrefab, pickedSpawn.position, Quaternion.identity,
+                    GameController.instance.roomsParent.transform);
             }
 
+        }
+    }
+
+    public void removeOldPoints()
+    {
+        for (int i = 0; i < possibleSpawns.Count; i++)
+        {
+            possibleSpawns.Remove(possibleSpawns[i]);
         }
     }
 

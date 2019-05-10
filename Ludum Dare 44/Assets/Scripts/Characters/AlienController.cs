@@ -66,7 +66,7 @@ public class AlienController : MonoBehaviour
 
             GameController.instance.currentPlayer.GetComponent<PlayerController>().addAmmo(Random.Range(2, 8));
 
-            //AudioManager.Instance.playSound("Alien Die");
+            AudioManager.instance.Play("Alien Die");
             Destroy(gameObject);
         }
     }
@@ -80,7 +80,7 @@ public class AlienController : MonoBehaviour
                 Destroy(collision.gameObject);
                 alienHealth--;
 
-                //AudioManager.Instance.playSound("Alien Hurt");
+                AudioManager.instance.Play("Alien Hurt");
                 return;
             }
         }

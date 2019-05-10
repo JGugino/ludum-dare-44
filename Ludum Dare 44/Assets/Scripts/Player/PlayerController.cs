@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
     {
         gameObject.SetActive(false);
         GUIController.instance.toggleDeathScreen(true);
-        //AudioManager.Instance.playSound("Player Die");
+        AudioManager.instance.Play("Player Die");
     }
 
     public void resetPlayerStats()
@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
                     GUIController.instance.updateAmmoSlider(currentBloodAmmo);
                 }
 
-                //AudioManager.Instance.playSound("Blood Shoot");
+                AudioManager.instance.Play("Blood Shoot");
             }
         }
     }
@@ -204,7 +204,7 @@ public class PlayerController : MonoBehaviour
                     playerMaxHealth -= 2;
                     playerCurrentHealth = playerMaxHealth;
 
-                    //AudioManager.Instance.playSound("Player Hurt");
+                    AudioManager.instance.Play("Player Hurt");
 
                     if (playerCurrentHealth <= 0)
                     {
@@ -245,7 +245,7 @@ public class PlayerController : MonoBehaviour
                 Destroy(collision.gameObject);
             }
 
-            //AudioManager.Instance.playSound("Item Pickup");
+            AudioManager.instance.Play("Item Pickup");
         }
     }
 
@@ -257,7 +257,7 @@ public class PlayerController : MonoBehaviour
             playerMaxHealth--;
             playerCurrentHealth = playerMaxHealth;
 
-            //AudioManager.Instance.playSound("Player Hurt");
+            AudioManager.instance.Play("Player Hurt");
 
             if (playerCurrentHealth <= 0)
             {

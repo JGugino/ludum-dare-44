@@ -30,10 +30,13 @@ public class HealthController : MonoBehaviour
     {
         if (spawnedHearts.Count > 0)
         {
-            for (int i = 0; i < heartsToRemove; i++)
+            if (heartsToRemove > 0)
             {
-                Destroy(spawnedHearts[i]);
-                spawnedHearts.Remove(spawnedHearts[i]);
+                for (int i = 0; i < heartsToRemove; i++)
+                {
+                    Destroy(spawnedHearts[i]);
+                    spawnedHearts.Remove(spawnedHearts[i]);
+                }
             }
         }
     }
